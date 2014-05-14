@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.os.Build;
 
 public class HostLogin extends ActionBarActivity {
@@ -22,8 +24,19 @@ public class HostLogin extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+		initSpinner();
 	}
 
+	private void initSpinner() {
+		Spinner s = (Spinner) findViewById(R.id.loginMatchTypeSelect);
+		ArrayAdapter<CharSequence> adapter =
+				ArrayAdapter.createFromResource(this, R.array.login_match_types,
+												android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		s.setAdapter(adapter);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

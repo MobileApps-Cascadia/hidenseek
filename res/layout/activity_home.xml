@@ -24,6 +24,7 @@
             android:layout_width="137dp"
             android:layout_height="121dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
             android:src="@drawable/logo_home" />
 
         <ImageButton
@@ -44,6 +45,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/btn_join" />
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
