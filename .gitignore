@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+# Project properties: appcompat discrepency.
+project.properties
+
 # Generated files
 bin/
 gen/
