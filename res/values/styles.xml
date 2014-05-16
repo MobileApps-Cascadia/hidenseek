@@ -14,7 +14,7 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:textColor">@color/text</item>
+        <!-- <item name="android:textColor">@color/text</item> -->
     </style>
 
 </resources>
