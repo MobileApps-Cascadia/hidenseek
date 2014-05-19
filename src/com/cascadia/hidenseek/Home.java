@@ -33,6 +33,7 @@ public class Home extends Activity {
             public void onClick(View v) {
     			Intent intent = new Intent(Home.this, JoinLogin.class);
     			startActivity(intent);
+    			//Change!
             }
         });
 	}

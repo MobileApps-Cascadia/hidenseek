@@ -9,8 +9,8 @@
 *.class
 
 # Project properties: appcompat discrepency.
-project.properties
-.classpath
+*.properties
+*.classpath
 
 # Generated files
 bin/
