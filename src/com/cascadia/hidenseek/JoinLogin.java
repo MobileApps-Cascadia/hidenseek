@@ -1,47 +1,44 @@
 package com.cascadia.hidenseek;
 
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.os.Build;
 
-public class Home extends Activity {
+public class JoinLogin extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_home);
-		
-        ImageButton btnHost = (ImageButton) findViewById(R.id.btnHostHome);
-        btnHost.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-    			Intent intent = new Intent(Home.this, HostLogin.class);
-    			startActivity(intent);
-            }
-        });
-        ImageButton btnJoin = (ImageButton) findViewById(R.id.btnJoinHome);
-        btnJoin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-    			Intent intent = new Intent(Home.this, JoinLogin.class);
-    			startActivity(intent);
-            }
-        });
+		setContentView(R.layout.activity_join_login);
+		//initList();
+
+	}
+	
+	private void initList() {
+		//bug here somewhere
+		ListView l = (ListView) findViewById(R.id.JoinMatchList);
+		ArrayAdapter<CharSequence> adapter =
+				ArrayAdapter.createFromResource(this, R.string.login_no_matches,
+												android.R.layout.simple_list_item_single_choice);
+		adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+		l.setAdapter(adapter);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.home, menu);
+		getMenuInflater().inflate(R.menu.join_login, menu);
 		return true;
 	}
 

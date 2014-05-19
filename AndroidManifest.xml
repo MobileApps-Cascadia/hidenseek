@@ -30,6 +30,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cascadia.hidenseek.Home" />
         </activity>
+        <activity
+            android:name="com.cascadia.hidenseek.JoinLogin"
+            android:label="@string/title_activity_join_login"
+            android:parentActivityName="com.cascadia.hidenseek.Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cascadia.hidenseek.Home" />
+        </activity>
     </application>
 
 </manifest>
