@@ -17,5 +17,10 @@
     <string name="Password">login_password_text_title</string>
     <string name="login_password_title">Password</string>
     <string name="login_no_matches">No matches found</string>
+    <string name="title_activity_host_config">Config Match</string>
+    <string name="config_seek_time">Search Time</string>
+    <string name="config_counting_time"></string>
+    <string name="config_count_time">Count Time</string>
+    <string name="config_players">Players</string>
 
 </resources>

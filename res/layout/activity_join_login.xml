@@ -25,7 +25,7 @@
             android:layout_weight="0.08" >
 
             <TextView
-                android:id="@+id/JoinMatchNameText"
+                android:id="@+id/configPlayersTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -37,21 +37,21 @@
                 android:textColor="@color/headings" />
 
             <ImageView
-                android:id="@+id/ImageView012"
+                android:id="@+id/configPlayersHelp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/JoinMatchNameText"
+                android:layout_alignTop="@+id/configPlayersTitle"
                 android:layout_marginRight="20dp"
                 android:src="@drawable/ic_help" />
 
             <ListView
-                android:id="@+id/JoinMatchList"
+                android:id="@+id/configPlayerList"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_alignLeft="@+id/JoinMatchNameText"
-                android:layout_alignRight="@+id/ImageView012"
-                android:layout_below="@+id/JoinMatchNameText" >
+                android:layout_alignLeft="@+id/configPlayersTitle"
+                android:layout_alignRight="@+id/configPlayersHelp"
+                android:layout_below="@+id/configPlayersTitle" >
 
             </ListView>
 
@@ -96,7 +96,6 @@
 
         </RelativeLayout>
 
-
         <ImageButton
             android:id="@+id/btnJoinJoin"
             android:layout_width="153dp"
@@ -104,7 +103,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/btn_join" />
+            android:src="@drawable/btn_join_set" />
         
     </LinearLayout>
 

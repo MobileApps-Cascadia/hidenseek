@@ -38,6 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cascadia.hidenseek.Home" />
         </activity>
+        <activity
+            android:name="com.cascadia.hidenseek.HostConfig"
+            android:label="@string/title_activity_host_config"
+            android:parentActivityName="com.cascadia.hidenseek.HostLogin" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cascadia.hidenseek.HostLogin" />
+        </activity>
     </application>
 
 </manifest>

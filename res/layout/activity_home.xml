@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/btn_host" />
+            android:src="@drawable/btn_host_set" />
 
         <ImageButton
             android:id="@+id/btnJoinHome"
@@ -43,7 +43,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/btn_join" />
+            android:src="@drawable/btn_join_set" />
     </LinearLayout>
 
 
