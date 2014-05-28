@@ -2,6 +2,7 @@ package com.cascadia.hidenseek;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.os.Build;
 
@@ -18,8 +20,16 @@ public class HostLogin extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_login);
-		
 		initSpinner();
+		
+        ImageButton btnHost = (ImageButton) findViewById(R.id.loginBtnHost);
+        btnHost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	//if( function to process host request returns true )
+    			Intent intent = new Intent(HostLogin.this, HostConfig.class);
+    			startActivity(intent);
+            }
+        });
 	}
 
 	private void initSpinner() {

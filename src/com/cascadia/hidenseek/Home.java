@@ -28,7 +28,14 @@ public class Home extends Activity {
     			startActivity(intent);
             }
         });
-		
+        ImageButton btnJoin = (ImageButton) findViewById(R.id.btnJoinHome);
+        btnJoin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+    			Intent intent = new Intent(Home.this, JoinLogin.class);
+    			startActivity(intent);
+    			//Change! Again!
+            }
+        });
 	}
 
 	@Override
