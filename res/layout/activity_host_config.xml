@@ -131,7 +131,7 @@
                 android:layout_weight="0.08" >
 
                 <ImageButton
-                    android:id="@+id/configStart"
+                    android:id="@+id/btnConfigBegin"
                     android:layout_width="133dp"
                     android:layout_height="130dp"
                     android:layout_alignParentLeft="true"
@@ -143,11 +143,11 @@
                     android:src="@drawable/btn_begin_set" />
 
                 <ImageButton
-                    android:id="@+id/configCancel"
+                    android:id="@+id/btnConfigCancel"
                     android:layout_width="133dp"
                     android:layout_height="130dp"
-                    android:layout_alignTop="@+id/configStart"
-                    android:layout_toRightOf="@+id/configStart"
+                    android:layout_alignTop="@+id/btnConfigBegin"
+                    android:layout_toRightOf="@+id/btnConfigBegin"
                     android:layout_weight="0.08"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"

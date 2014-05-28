@@ -1,8 +1,12 @@
 package com.cascadia.hidenseek;
 
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,12 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class Active extends ActionBarActivity {
+public class Active extends MapActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active);
+		MapView map = (MapView) findViewById(R.id.mapview);
 
 	}
 
@@ -38,6 +43,12 @@ public class Active extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
