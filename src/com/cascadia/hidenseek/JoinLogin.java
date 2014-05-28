@@ -3,6 +3,7 @@ package com.cascadia.hidenseek;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +15,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.os.Build;
 
-public class JoinLogin extends ActionBarActivity {
+public class JoinLogin extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
