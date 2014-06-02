@@ -1,11 +1,13 @@
 package com.cascadia.hidenseek;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class HostConfig extends Activity {
@@ -34,6 +36,14 @@ public class HostConfig extends Activity {
 	            //add later? or probably it's a radio listener
 	
 	        }
+        });
+		
+        ImageButton btnConfigMatch = (ImageButton) findViewById(R.id.btnConfigBegin);
+        btnConfigMatch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+    			Intent intent = new Intent(HostConfig.this, Active.class);
+    			startActivity(intent);
+            }
         });			
 	}
 			
