@@ -123,6 +123,8 @@
                     android:layout_alignRight="@+id/configPlayersHelp"
                     android:layout_below="@+id/configPlayersTitle" >
                 </ListView>
+                
+
             </RelativeLayout>
 
             <RelativeLayout
