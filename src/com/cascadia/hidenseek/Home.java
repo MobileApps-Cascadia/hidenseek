@@ -1,6 +1,9 @@
 package com.cascadia.hidenseek;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.cascadia.hidenseek.Match.MatchType;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -35,20 +38,8 @@ public class Home extends Activity {
             public void onClick(View v) {
     			Intent intent = new Intent(Home.this, JoinLogin.class);
     			startActivity(intent);
-    			//Change! Again!
             }
         });
-        NetworkApi api = new NetworkApi();
-        try {
-			api.getMatches();
-        } catch(RuntimeException e) {
-        	e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch(Exception e) {
-        	e.printStackTrace();
-        }
 	}
 
 	@Override

@@ -1,20 +1,24 @@
 package com.cascadia.hidenseek;
 
-import java.io.IOException;
 
-import android.os.AsyncTask;
+public abstract class NetworkRequest {
 
-public abstract class NetworkRequest extends AsyncTask<Request, Void, String> {
-
-	@Override
-	protected String doInBackground(Request ... arg0) {
-		try {
-			return nbase.Request(arg0[0]);
-		} catch (IOException e) {
-			return null;
-		}
+	public NetworkRequest() {
+		nRequest = new NetworkTask() {
+			@Override
+			protected void onPostExecute(String result) {
+				processPostExecute(result);
+			}
+		};
 	}
 	
-	protected static NetworkBase nbase = new NetworkBase();
+	protected final void doRequest(Request r) {
+		nRequest.execute(r);
+	}
+	
+	protected abstract void processPostExecute(String jsonResponse);
+	
+	private NetworkTask nRequest;
+	protected final String baseUrl = "http://216.186.69.45/services/hidenseek/";
 
 }
