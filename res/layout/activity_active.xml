@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cascadia.hidenseek.Active"
+    tools:ignore="MergeRootFrame" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical" >
+            <com.google.android.maps.MapView
+			    xmlns:android="http://schemas.android.com/apk/res/android"
+			    android:id="@+id/mapview"
+			    android:layout_width="fill_parent"
+			    android:layout_height="300dp"
+			    android:clickable="true"
+			    android:apiKey="AIzaSyC11X42NRUBXdLs9eS5mQUgz6NfVP7rF8A"
+			/>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
