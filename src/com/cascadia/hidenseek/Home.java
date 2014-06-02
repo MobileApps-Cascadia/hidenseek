@@ -1,5 +1,10 @@
 package com.cascadia.hidenseek;
 
+import java.io.IOException;
+import java.util.List;
+
+import com.cascadia.hidenseek.Match.MatchType;
+
 import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
@@ -33,7 +38,6 @@ public class Home extends Activity {
             public void onClick(View v) {
     			Intent intent = new Intent(Home.this, JoinLogin.class);
     			startActivity(intent);
-    			//Change! Again!
             }
         });
 	}
