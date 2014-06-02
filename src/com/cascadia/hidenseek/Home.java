@@ -1,5 +1,7 @@
 package com.cascadia.hidenseek;
 
+import java.io.IOException;
+
 import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +38,17 @@ public class Home extends Activity {
     			//Change! Again!
             }
         });
+        NetworkApi api = new NetworkApi();
+        try {
+			api.getMatches();
+        } catch(RuntimeException e) {
+        	e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch(Exception e) {
+        	e.printStackTrace();
+        }
 	}
 
 	@Override

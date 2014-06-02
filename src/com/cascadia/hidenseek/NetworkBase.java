@@ -12,6 +12,28 @@ public class NetworkBase {
 	public NetworkBase() {
 	}
 	
+	public enum RequestType {
+		GET,
+		PUT,
+		PUT_NoArgs,
+		POST
+	}
+	
+	public String Request(Request r) throws IOException {
+		switch(r.type) {
+		case GET:
+			return Get(r.url);
+		case POST:
+			return Post(r.url, r.jsonArgs);
+		case PUT:
+			return Put(r.url, r.jsonArgs);
+		case PUT_NoArgs:
+			return Put(r.url);
+		default:
+			return null; //suppress errors
+		}
+	}
+	
 	//Send a GET request to the given url and returns the received text
 	public String Get(String url) throws IOException {
 		return get(url, false);
@@ -43,7 +65,7 @@ public class NetworkBase {
 	private String post(String strUrl, String jsonArgs, boolean isPut)
 			throws IOException {
 		URL url;
-		String toReturn;
+		String toReturn = "";
 		try {
 			url = new URL(strUrl);
 		} catch (MalformedURLException e1) {
@@ -62,6 +84,8 @@ public class NetworkBase {
 			connection.setChunkedStreamingMode(0);
 			writeOutStream(jsonArgs);
 			toReturn = getInStream();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
 		} finally {
 			connection.disconnect();
 		}
