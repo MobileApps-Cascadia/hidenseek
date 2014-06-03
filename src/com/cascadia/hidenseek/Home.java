@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import com.cascadia.hidenseek.Match.MatchType;
+import com.cascadia.hidenseek.network.GetMatchRequest;
+import com.cascadia.hidenseek.network.PostMatchRequest;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -53,9 +55,19 @@ public class Home extends Activity {
 						protected void onComplete(Match m) {
 							return;
 						}
+
+						@Override
+						protected void onException(Exception e) {
+							
+						}
 					};
 					nr.DoRequest(match.GetId());
 					return;
+				}
+
+				@Override
+				protected void onException(Exception e) {
+					
 				}
 			};
 			Match m = new Match();

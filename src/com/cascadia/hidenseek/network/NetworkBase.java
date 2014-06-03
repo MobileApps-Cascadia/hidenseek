@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.network;
 
 import java.io.IOException;
 import java.io.InputStream;

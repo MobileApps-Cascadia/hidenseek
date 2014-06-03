@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.network;
 
 public abstract class RequestResponse {
 

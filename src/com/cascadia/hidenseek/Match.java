@@ -17,11 +17,7 @@ public class Match {
 		Active,
 		Pending,
 		Complete;
-		
-		/**
-		 * Returns Sandbox if string is equal to "sandbox" (ignoring case),
-		 * else returns HideNSeek
-		 */
+
 		public static Status Parse(String s) {
 			if(s.equalsIgnoreCase("active")){
 				return Active;
@@ -211,4 +207,9 @@ public class Match {
 	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);;
 	
 	public List<Player> players = new ArrayList<Player>();
+
+	public void StartMatch() {
+		startTime = new Date();
+		status = Status.Active;
+	}
 }
