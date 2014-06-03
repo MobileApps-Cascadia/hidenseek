@@ -40,6 +40,33 @@ public class Home extends Activity {
     			startActivity(intent);
             }
         });
+        
+        try {
+			
+			PostMatchRequest pr = new PostMatchRequest() {
+				
+				@Override
+				protected void onComplete(Match match) {
+					GetMatchRequest nr = new GetMatchRequest() {
+						
+						@Override
+						protected void onComplete(Match m) {
+							return;
+						}
+					};
+					nr.DoRequest(match.GetId());
+					return;
+				}
+			};
+			Match m = new Match();
+			m = new Match("Aaron's Match", "Aaron's Password", MatchType.Sandbox);
+			pr.DoRequest(m);
+			
+        } catch(RuntimeException e) {
+        	e.printStackTrace();
+		} catch(Exception e) {
+        	e.printStackTrace();
+        }
 	}
 
 	@Override
