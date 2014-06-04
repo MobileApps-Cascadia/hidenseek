@@ -20,7 +20,7 @@ public abstract class PostPlayerRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		p.ProcessPostResponse(s);
+		p.ProcessPostResponse(s, m);
 		onComplete(p);
 	}
 	

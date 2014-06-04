@@ -31,7 +31,7 @@ public class Player {
 			case Seeker:
 				return "seeker";
 			default:
-				return "supervisor";
+				return "admin";
 			}
 		}
 	}
@@ -54,13 +54,19 @@ public class Player {
 	public String ToJSONPost(String password) throws JSONException {
 		JSONObject jObject = new JSONObject();
 		jObject.put("name", name);
-		jObject.put("matchId", associatedMatch.GetId());
 		jObject.put("password", password);
 		return jObject.toString();
 	}
 	
-	public boolean ProcessPostResponse(String jsonStr) {
+	public String RoleToJSON() throws JSONException {
+		JSONObject jObject = new JSONObject();
+		jObject.put("role", role.GetApiString());
+		return jObject.toString();
+	}
+	
+	public boolean ProcessPostResponse(String jsonStr, Match associatedMatch) {
 		try {
+			this.associatedMatch = associatedMatch;
 			playerId = new JSONObject(jsonStr).getInt("id");
 			if(playerId == 0) {
 				return false;
@@ -77,6 +83,7 @@ public class Player {
 		Player toReturn = new Player(jObject.getString("name"), associatedMatch);
 		toReturn.playerId = jObject.getInt("id");
 		toReturn.role = Role.Parse(jObject.getString("role"));
+
 		//TODO: gps etc.
 		return toReturn;
 	}

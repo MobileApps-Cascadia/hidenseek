@@ -14,7 +14,8 @@ public abstract class PostMatchRequest extends NetworkRequest {
 		doRequest(r);
 	}
 	
-	protected abstract void onComplete(Match match);
+	//To be overwritten
+	protected void onComplete(Match match) { }
 	
 	@Override
 	protected final void processPostExecute(String s) {

@@ -16,7 +16,8 @@ public class NetworkBase {
 		GET,
 		PUT,
 		PUT_NoArgs,
-		POST
+		POST,
+		DELETE
 	}
 	
 	public String Request(Request r) throws IOException {
