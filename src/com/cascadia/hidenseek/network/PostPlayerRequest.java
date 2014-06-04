@@ -16,7 +16,8 @@ public abstract class PostPlayerRequest extends NetworkRequest {
 		doRequest(r);
 	}
 	
-	protected abstract void onComplete(Player player);
+	//To be overwritten
+	protected void onComplete(Player player) { }
 	
 	@Override
 	protected final void processPostExecute(String s) {

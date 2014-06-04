@@ -1,13 +1,20 @@
 package com.cascadia.hidenseek;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.location.Location;
+
 import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.LocationParser;
 
 public class Player {
 
@@ -64,6 +71,12 @@ public class Player {
 		return jObject.toString();
 	}
 	
+	public String LocationToJSON() throws JSONException {
+		JSONObject jObject = new JSONObject();
+		jObject.put("gps", LocationParser.GetString(location));
+		return jObject.toString();
+	}
+	
 	public boolean ProcessPostResponse(String jsonStr, Match associatedMatch) {
 		try {
 			this.associatedMatch = associatedMatch;
@@ -84,12 +97,26 @@ public class Player {
 		toReturn.playerId = jObject.getInt("id");
 		toReturn.role = Role.Parse(jObject.getString("role"));
 
-		//TODO: gps etc.
+		try {
+			toReturn.location = LocationParser.Parse(jObject.getString("GPSLocation"));
+			toReturn.lastUpdatedLocation = dateTimeFormat.parse(jObject.getString("lastUpdated"));
+		} catch(JSONException e) {
+		} catch(ParseException e) {
+			//Assume that the exception means to leave the current values alone
+		}
 		return toReturn;
 	}
 	
 	public String GetName() {
 		return name;
+	}
+	
+	public Location GetLocation() {
+		return location;
+	}
+	
+	public Date GetLastUpdatedLocation() {
+		return lastUpdatedLocation;
 	}
 	
 	public Role GetRole() {
@@ -104,8 +131,12 @@ public class Player {
 		return playerId;
 	}
 	
+	private Location location;
+	private Date lastUpdatedLocation;
 	private Match associatedMatch;
 	private String name;
 	private Role role;
 	private int playerId = -1;
+	
+	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 }

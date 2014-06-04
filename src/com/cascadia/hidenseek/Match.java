@@ -204,7 +204,7 @@ public class Match {
 	private MatchType type;
 	private Date startTime;
 	
-	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);;
+	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
 	
 	public List<Player> players = new ArrayList<Player>();
 
