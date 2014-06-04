@@ -22,7 +22,6 @@
 			    android:layout_height="300dp"
 			    android:clickable="true"
 			    android:name="com.google.android.gms.maps.SupportMapFragment"
-			    android:apiKey="AIzaSyC11X42NRUBXdLs9eS5mQUgz6NfVP7rF8A"
 			/>
         </LinearLayout>
     </ScrollView>
