@@ -177,16 +177,19 @@ public class Match {
 	public int GetId() {
 		return matchId;
 	}
+	public String GetName() {
+		return name;
+	}
 	public int GetCountTime() {
 		return countTime;
 	}
 	public void SetCountTime(int time) {
 		countTime = time;
 	}
-	public int GetseekTime() {
+	public int GetSeekTime() {
 		return seekTime;
 	}
-	public void SetseekTime(int time) {
+	public void SetSeekTime(int time) {
 		seekTime = time;
 	}
 	public MatchType GetType() {

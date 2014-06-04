@@ -1,5 +1,11 @@
 package com.cascadia.hidenseek;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.GetMatchListRequest;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -21,18 +27,34 @@ public class JoinLogin extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join_login);
-		//initList();
+		initList();
 
 	}
 	
 	private void initList() {
-		//bug here somewhere
-		ListView l = (ListView) findViewById(R.id.configPlayerList);
-		ArrayAdapter<CharSequence> adapter =
-				ArrayAdapter.createFromResource(this, R.string.login_no_matches,
-												android.R.layout.simple_list_item_single_choice);
-		adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-		l.setAdapter(adapter);
+		GetMatchListRequest request = new GetMatchListRequest() {
+			
+			@Override
+			protected void onException(Exception e) { }
+			
+			@Override
+			protected void onComplete(List<Match> matches) {
+				ListView l = (ListView) findViewById(R.id.configPlayerList);
+				List<String> gameTitles = new ArrayList<String>();
+				for(Match m : matches) {
+					if(m.GetStatus() == Status.Pending) {
+						//TODO: put it in the ListView using the following string
+						String title = m.GetId() + ' ' + m.GetName();
+						gameTitles.add(title);
+					}
+				}
+
+				//TODO: put each entry of gameTitles into a new listview entry
+				
+			}
+		};
+		request.DoRequest();
+		
 	}
 
 	@Override
