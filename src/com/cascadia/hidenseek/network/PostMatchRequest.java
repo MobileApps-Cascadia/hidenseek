@@ -19,7 +19,12 @@ public abstract class PostMatchRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		m.ProcessPostResponse(s);
+		try {
+			m.ProcessPostResponse(s);
+		} catch (NullPointerException e) {
+			onException(e);
+			return;
+		}
 		onComplete(m);
 	}
 	

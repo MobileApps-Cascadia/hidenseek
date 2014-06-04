@@ -1,5 +1,7 @@
 package com.cascadia.hidenseek;
 
+import com.cascadia.hidenseek.network.PostMatchRequest;
+
 import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.os.Build;
 
 public class HostLogin extends Activity {
@@ -25,9 +29,31 @@ public class HostLogin extends Activity {
         ImageButton btnHost = (ImageButton) findViewById(R.id.loginBtnHost);
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	//if( function to process host request returns true )
-    			Intent intent = new Intent(HostLogin.this, HostConfig.class);
-    			startActivity(intent);
+            	EditText mName = (EditText) findViewById(R.id.loginMatchNameInput);
+            	Spinner mType = (Spinner) findViewById(R.id.loginMatchTypeSelect);
+            	EditText mPassword = (EditText) findViewById(R.id.loginPasswordInput);
+            	
+            	Match m = HostLoginManager.ValidateLogin(mName.getText().toString(),
+			            			mPassword.getText().toString(),
+			            			mType.getSelectedItemPosition());
+            	if(m == null) return;
+            	int requestCount = 1;
+            	PostMatchRequest pm = new PostMatchRequest() {
+					
+            		@Override
+            		protected void onComplete(Match m) {
+            			Intent intent = new Intent(HostLogin.this, HostConfig.class);
+            			startActivity(intent);
+            		}
+            		
+					@Override
+					protected void onException(Exception e) {
+						e.printStackTrace();
+					}
+					
+					public int requestCount = 0;
+				};
+				pm.DoRequest(m);
             }
         });
 	}

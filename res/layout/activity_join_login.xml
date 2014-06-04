@@ -13,99 +13,141 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg" />
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.08" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/configPlayersTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/login_match_name"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/headings" />
-
-            <ImageView
-                android:id="@+id/configPlayersHelp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/configPlayersTitle"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_help" />
-
-            <ListView
-                android:id="@+id/configPlayerList"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_alignLeft="@+id/configPlayersTitle"
-                android:layout_alignRight="@+id/configPlayersHelp"
-                android:layout_below="@+id/configPlayersTitle" >
-
-            </ListView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.08" >
-
-            <TextView
-                android:id="@+id/JoinPasswordText"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="17dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/login_password_title"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/headings" />
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.08" >
 
-            <ImageView
-                android:id="@+id/ImageView022"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/configPlayersTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/login_match_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/headings" />
+
+                <ImageView
+                    android:id="@+id/configPlayersHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/configPlayersTitle"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_help" />
+
+                <ListView
+                    android:id="@+id/configPlayerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_alignLeft="@+id/configPlayersTitle"
+                    android:layout_alignRight="@+id/configPlayersHelp"
+                    android:layout_below="@+id/configPlayersTitle" >
+                </ListView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/JoinPasswordText"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_help" />
+                android:layout_weight="0.08" >
 
-            <EditText
-                android:id="@+id/JoinPasswordInput"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/JoinPasswordText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/login_password_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/headings" />
+
+                <ImageView
+                    android:id="@+id/ImageView022"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/JoinPasswordText"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_help" />
+
+                <EditText
+                    android:id="@+id/JoinPasswordInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/JoinPasswordText"
+                    android:layout_alignRight="@+id/ImageView022"
+                    android:layout_below="@+id/JoinPasswordText"
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/JoinPasswordText"
-                android:layout_alignRight="@+id/ImageView022"
-                android:layout_below="@+id/JoinPasswordText"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:inputType="textPassword" />
+                android:layout_weight="0.08" >
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/login_password_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/headings" />
 
-        <ImageButton
-            android:id="@+id/btnJoinJoin"
-            android:layout_width="153dp"
-            android:layout_height="149dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/btn_join_set" />
-        
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/TextView01"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_help" />
+
+                <EditText
+                    android:id="@+id/EditText01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/TextView01"
+                    android:layout_alignRight="@+id/ImageView01"
+                    android:layout_below="@+id/TextView01"
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/btnJoinJoin"
+                android:layout_width="153dp"
+                android:layout_height="149dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.08"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/btn_join_set" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>
 
