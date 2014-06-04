@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.network;
 
 import java.io.IOException;
 
@@ -11,10 +11,12 @@ public abstract class NetworkTask extends AsyncTask<Request, Void, String> {
 		try {
 			return nbase.Request(arg0[0]);
 		} catch (IOException e) {
+			exception = e;
 			return null;
 		}
 	}
 	
+	protected Exception exception = null;
 	protected static NetworkBase nbase = new NetworkBase();
 
 }

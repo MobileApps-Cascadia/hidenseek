@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import com.cascadia.hidenseek.Match.MatchType;
+import com.cascadia.hidenseek.network.GetMatchRequest;
+import com.cascadia.hidenseek.network.PostMatchRequest;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -40,6 +42,43 @@ public class Home extends Activity {
     			startActivity(intent);
             }
         });
+        
+        try {
+			
+			PostMatchRequest pr = new PostMatchRequest() {
+				
+				@Override
+				protected void onComplete(Match match) {
+					GetMatchRequest nr = new GetMatchRequest() {
+						
+						@Override
+						protected void onComplete(Match m) {
+							return;
+						}
+
+						@Override
+						protected void onException(Exception e) {
+							
+						}
+					};
+					nr.DoRequest(match.GetId());
+					return;
+				}
+
+				@Override
+				protected void onException(Exception e) {
+					
+				}
+			};
+			Match m = new Match();
+			m = new Match("Aaron's Match", "Aaron's Password", MatchType.Sandbox);
+			pr.DoRequest(m);
+			
+        } catch(RuntimeException e) {
+        	e.printStackTrace();
+		} catch(Exception e) {
+        	e.printStackTrace();
+        }
 	}
 
 	@Override

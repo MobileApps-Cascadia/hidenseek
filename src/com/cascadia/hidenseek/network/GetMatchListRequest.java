@@ -1,13 +1,12 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.network;
 
-import java.io.IOException;
 import java.util.List;
 
-import com.cascadia.hidenseek.NetworkBase.RequestType;
+import com.cascadia.hidenseek.Match;
+import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
-import android.os.AsyncTask;
 
-public abstract class MatchListRequest extends NetworkRequest {
+public abstract class GetMatchListRequest extends NetworkRequest {
 	
 	public void DoRequest() {
 		Request r = new Request();

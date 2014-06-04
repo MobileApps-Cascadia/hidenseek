@@ -1,4 +1,4 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.network;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,8 @@ public class NetworkBase {
 		GET,
 		PUT,
 		PUT_NoArgs,
-		POST
+		POST,
+		DELETE
 	}
 	
 	public String Request(Request r) throws IOException {

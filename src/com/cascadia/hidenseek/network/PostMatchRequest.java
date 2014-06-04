@@ -1,6 +1,7 @@
-package com.cascadia.hidenseek;
+package com.cascadia.hidenseek.network;
 
-import com.cascadia.hidenseek.NetworkBase.RequestType;
+import com.cascadia.hidenseek.Match;
+import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class PostMatchRequest extends NetworkRequest {
 
@@ -13,7 +14,8 @@ public abstract class PostMatchRequest extends NetworkRequest {
 		doRequest(r);
 	}
 	
-	protected abstract void onComplete(Match match);
+	//To be overwritten
+	protected void onComplete(Match match) { }
 	
 	@Override
 	protected final void processPostExecute(String s) {
