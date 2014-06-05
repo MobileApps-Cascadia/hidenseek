@@ -36,7 +36,12 @@ public class HostLogin extends Activity {
             	Match m = HostLoginManager.ValidateLogin(mName.getText().toString(),
 			            			mPassword.getText().toString(),
 			            			mType.getSelectedItemPosition());
-            	if(m == null) return;
+            	if(m == null) {
+            		//TEMP: start activity without sending any info to the server
+        			Intent intent = new Intent(HostLogin.this, HostConfig.class);
+        			startActivity(intent);
+        			return;
+            	}
             	PostMatchRequest pm = new PostMatchRequest() {
 					
             		@Override
