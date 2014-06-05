@@ -37,7 +37,6 @@ public class HostLogin extends Activity {
 			            			mPassword.getText().toString(),
 			            			mType.getSelectedItemPosition());
             	if(m == null) return;
-            	int requestCount = 1;
             	PostMatchRequest pm = new PostMatchRequest() {
 					
             		@Override
@@ -50,8 +49,6 @@ public class HostLogin extends Activity {
 					protected void onException(Exception e) {
 						e.printStackTrace();
 					}
-					
-					public int requestCount = 0;
 				};
 				pm.DoRequest(m);
             }

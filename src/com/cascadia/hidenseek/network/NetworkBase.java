@@ -135,7 +135,9 @@ public class NetworkBase {
 	//Gets a string from an input stream
 	private String convertStreamToString(InputStream istream) {
 	    Scanner s = new Scanner(istream).useDelimiter("\\A");
-	    return s.hasNext() ? s.next() : "";
+	    String toReturn = s.hasNext() ? s.next() : "";
+	    s.close();
+	    return toReturn;
 	}
 	
 	private HttpURLConnection connection;
