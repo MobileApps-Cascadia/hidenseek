@@ -40,7 +40,7 @@ public class JoinLogin extends Activity {
 			@Override
 			protected void onComplete(List<Match> matches) {
 				ListView l = (ListView) findViewById(R.id.configPlayerList);
-				List<String> gameTitles = new ArrayList<String>();
+				ArrayList<String> gameTitles = new ArrayList<String>();
 				for(Match m : matches) {
 					if(m.GetStatus() == Status.Pending) {
 						//TODO: put it in the ListView using the following string
@@ -48,9 +48,8 @@ public class JoinLogin extends Activity {
 						gameTitles.add(title);
 					}
 				}
-
-				//TODO: put each entry of gameTitles into a new listview entry
-				
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(JoinLogin.this,android.R.layout.simple_list_item_1, gameTitles);
+				l.setAdapter(arrayAdapter);				
 			}
 		};
 		request.DoRequest();
