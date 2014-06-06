@@ -23,5 +23,6 @@
     <string name="config_count_time">Count Time</string>
     <string name="config_players">Players</string>
     <string name="title_activity_active">Active Game</string>
+    <string name="player_name">Player Name</string>
 
 </resources>
