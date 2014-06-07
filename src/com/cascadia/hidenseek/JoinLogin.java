@@ -48,7 +48,7 @@ public class JoinLogin extends Activity {
 						gameTitles.add(title);
 					}
 				}
-				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(JoinLogin.this,android.R.layout.simple_list_item_1, gameTitles);
+				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(JoinLogin.this,android.R.layout.simple_list_item_single_choice, gameTitles);
 				l.setAdapter(arrayAdapter);				
 			}
 		};
