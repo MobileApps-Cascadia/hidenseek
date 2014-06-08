@@ -15,19 +15,15 @@ public class HostConfig extends Activity {
 	ListView list;
 	//Add players here
 	String[] web = {
-		"Billie Jo",
-			"Mike",
-			"Tre Cool",
-			"Jason"
+		"Billie Jo", "Mike", "Tre Cool"
 	} ;
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_config);
 		
-		CustomList adapter = new
-		CustomList(HostConfig.this, web);
+		CustomList adapter = new CustomList(HostConfig.this, web);
 		list=(ListView)findViewById(R.id.configPlayerList);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
