@@ -32,19 +32,20 @@ public class JoinLogin extends Activity {
 	}
 	
 	private void initList() {
+		//Create list of "pending" matches
 		GetMatchListRequest request = new GetMatchListRequest() {
 			
 			@Override
-			protected void onException(Exception e) { }
+			protected void onException(Exception e) { }		
 			
 			@Override
 			protected void onComplete(List<Match> matches) {
+				//Gets the list of matches and puts in listview
 				ListView l = (ListView) findViewById(R.id.configPlayerList);
 				ArrayList<String> gameTitles = new ArrayList<String>();
 				for(Match m : matches) {
 					if(m.GetStatus() == Status.Pending) {
-						//TODO: put it in the ListView using the following string
-						String title = m.GetId() + ' ' + m.GetName();
+						String title = m.GetId() + " - " + m.GetName();
 						gameTitles.add(title);
 					}
 				}
