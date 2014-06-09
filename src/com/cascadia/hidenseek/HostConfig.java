@@ -22,10 +22,6 @@ public class HostConfig extends Activity {
 
 	String username, counttime, seektime;
 	ListView list;
-	//TEMP: Add players here
-	String[] web = {
-		"Billie Jo", "Mike", "Tre Cool"
-	} ;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +30,7 @@ public class HostConfig extends Activity {
 		
 		initSettings();
 		list=(ListView)findViewById(R.id.configPlayerList);
-		
-		
+				
 		TextView playersText = (TextView) findViewById(R.id.configPlayersTitle);
 		playersText.setOnClickListener(new View.OnClickListener() {
 			
