@@ -46,10 +46,9 @@ public class HostConfig extends Activity {
             }
         });			
 	}
-			
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.host_config, menu);
 		return true;
@@ -67,7 +66,9 @@ public class HostConfig extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	//Get any stored preferences and put them in the fields when form is loaded
+	/**
+	 * Get any stored preferences and put them in the fields when form is loaded
+	 */
 	private void initSettings(){		
 		counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "");
 		EditText cTime = (EditText)findViewById(R.id.configCountTimeInput);

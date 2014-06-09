@@ -17,22 +17,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.os.Build;
 
 public class JoinLogin extends Activity {
 
+	String username;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join_login);
+		initSettings();
 		initList();
-
 	}
 	
+	/**
+	 * initList creates a list of all the matches that are in a pending state
+	 */
 	private void initList() {
-		//Create list of "pending" matches
 		GetMatchListRequest request = new GetMatchListRequest() {
 			
 			@Override
@@ -76,5 +81,13 @@ public class JoinLogin extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+	/**
+	 * Get any stored preferences and put them in the fields when form is loaded
+	 */
+	private void initSettings(){		
+		username = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Username","");
+		EditText uName = (EditText)findViewById(R.id.TextPlayerNameInput);
+		uName.setText(username);
+	}
 }
