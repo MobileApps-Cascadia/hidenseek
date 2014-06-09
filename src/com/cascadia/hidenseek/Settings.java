@@ -70,27 +70,6 @@ public class Settings extends Activity implements OnClickListener {
 				break; 
 			case R.id.exit: 
 				finish(); 
-				} 
 		} 
-	
-	/** 
-	 * returns Shared Pref Player Name 
-	 */
-	public String getUserName(){
-		return username;
-	}
-	
-	/** 
-	 * returns Shared Pref Count Time 
-	 */
-	public String getCountTime(){
-		return counttime;
-	}
-	
-	/** 
-	 * returns Shared Pref Seek Time 
-	 */
-	public String getSeekTime(){
-		return seektime;	
-	}
+	} 
 }

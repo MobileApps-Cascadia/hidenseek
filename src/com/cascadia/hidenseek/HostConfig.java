@@ -51,12 +51,19 @@ public class HostConfig extends Activity {
             	//Set the match count time and seek time as specified, etc.
             	EditText countTime = (EditText) findViewById(R.id.configCountTimeInput);
             	EditText seekTime = (EditText) findViewById(R.id.configSeekTimeInput);
+            	String sCountTime = countTime.getText().toString();
+        		String sSeekTime = seekTime.getText().toString();
+        		if(sSeekTime.length() == 0 || sCountTime.length() == 0) {
+        			//Error!
+        			return;
+        		}
             	Match m = LoginManager.GetMatch();
             	try {
 	            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
 	            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
             	} catch(NumberFormatException e) {
-            		//TODO: get defaults
+            		//Error!
+            		return;
             	}
             	PutStartRequest request = new PutStartRequest() {
 					@Override
