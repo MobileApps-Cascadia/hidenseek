@@ -1,5 +1,11 @@
 package com.cascadia.hidenseek;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cascadia.hidenseek.network.GetPlayerListRequest;
+import com.cascadia.hidenseek.network.PutStartRequest;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class HostConfig extends Activity {
 
@@ -26,27 +33,76 @@ public class HostConfig extends Activity {
 		setContentView(R.layout.activity_host_config);
 		
 		initSettings();
-		
-		CustomList adapter = new CustomList(HostConfig.this, web);
 		list=(ListView)findViewById(R.id.configPlayerList);
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	        @Override
-	        public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-	            //add later? or probably it's a radio listener
-	
-	        }
-        });
+		
+		
+		TextView playersText = (TextView) findViewById(R.id.configPlayersTitle);
+		playersText.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				setPlayerList();
+			}
+		});
 		
         ImageButton btnConfigMatch = (ImageButton) findViewById(R.id.btnConfigBegin);
         btnConfigMatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-    			Intent intent = new Intent(HostConfig.this, Active.class);
-    			startActivity(intent);
+            	//Set the match count time and seek time as specified, etc.
+            	EditText countTime = (EditText) findViewById(R.id.configCountTimeInput);
+            	EditText seekTime = (EditText) findViewById(R.id.configSeekTimeInput);
+            	Match m = LoginManager.GetMatch();
+            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
+            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
+            	PutStartRequest request = new PutStartRequest() {
+					@Override
+					protected void onException(Exception e) {
+						
+					}
+					@Override
+					protected void onComplete(Match m) {
+		    			Intent intent = new Intent(HostConfig.this, Active.class);
+		    			startActivity(intent);
+					}
+				};
+				request.DoRequest(m);
             }
-        });			
+        });	
+		setPlayerList();		
 	}
 	
+	private void setPlayerList() {
+		if(LoginManager.GetMatch() == null) {
+			String[] titles = {"Failed to update match list.", "(null match)"};
+			CustomList adapter = new CustomList(HostConfig.this, titles);
+			list.setAdapter(adapter);
+			return;
+		}
+		GetPlayerListRequest request = new GetPlayerListRequest() {
+			
+			@Override
+			protected void onException(Exception e) {
+				String[] titles = {"Failed to update match list."};
+				CustomList adapter = new CustomList(HostConfig.this, titles);
+				list.setAdapter(adapter);
+			}
+			
+			@Override
+			protected void onComplete(Match match) {
+				String[] titles = new String[match.players.size()];
+				int i = 0;
+				for(Player p : match.players) {
+					titles[i] = p.GetName();
+					i++;
+				}
+				CustomList adapter = new CustomList(HostConfig.this, titles);
+				list.setAdapter(adapter);
+				
+			}
+		};
+		request.DoRequest(LoginManager.GetMatch());
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
