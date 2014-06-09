@@ -6,33 +6,27 @@
     tools:context="com.cascadia.hidenseek.Active"
     tools:ignore="MergeRootFrame" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:orientation="vertical" >
-            
-            <fragment
-			    android:id="@+id/mapview"
-			    android:layout_width="fill_parent"
-			    android:layout_height="300dp"
-			    android:clickable="true"
-			    android:name="com.google.android.gms.maps.SupportMapFragment"
-			/>
-            
-            <ImageButton
+        <fragment
+            android:id="@+id/mapview"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+
+        <ImageButton
             android:id="@+id/btnLeaveGame"
-            android:layout_width="153dp"
-            android:layout_height="149dp"
-            android:layout_gravity="center"
+            android:layout_width="103dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
             android:src="@drawable/btn_leave_set" />
-        </LinearLayout>
-    </ScrollView>
+
+    </RelativeLayout>
 
 </FrameLayout>
