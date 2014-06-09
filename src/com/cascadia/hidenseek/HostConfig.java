@@ -7,13 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class HostConfig extends Activity {
 
+	String username, counttime, seektime;
 	ListView list;
-	//Add players here
+	//TEMP: Add players here
 	String[] web = {
 		"Billie Jo", "Mike", "Tre Cool"
 	} ;
@@ -22,6 +24,8 @@ public class HostConfig extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_config);
+		
+		initSettings();
 		
 		CustomList adapter = new CustomList(HostConfig.this, web);
 		list=(ListView)findViewById(R.id.configPlayerList);
@@ -61,5 +65,16 @@ public class HostConfig extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	//Get any stored preferences and put them in the fields when form is loaded
+	private void initSettings(){		
+		counttime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Counttime", "");
+		EditText cTime = (EditText)findViewById(R.id.configCountTimeInput);
+		cTime.setText(counttime);
+		
+		seektime = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Seektime", "");
+		EditText sTime = (EditText)findViewById(R.id.configSeekTimeInput);
+		sTime.setText(seektime);
 	}
 }
