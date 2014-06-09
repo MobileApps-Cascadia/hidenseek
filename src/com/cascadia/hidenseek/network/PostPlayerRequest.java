@@ -1,16 +1,14 @@
 package com.cascadia.hidenseek.network;
 
-import com.cascadia.hidenseek.Match;
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
 public abstract class PostPlayerRequest extends NetworkRequest {
 
-	public void DoRequest(Player toPost, Match associatedMatch, String password) {
+	public void DoRequest(Player toPost, String password) {
 		p = toPost;
-		m = associatedMatch;
 		Request r = new Request();
-		r.url = baseUrl + "matches/" + m.GetId() + "/players/";
+		r.url = baseUrl + "matches/" + toPost.GetAssociatedMatch().GetId() + "/players/";
 		r.type = RequestType.POST;
 		r.jsonArgs = p.ToJSONPost(password);
 		doRequest(r);
@@ -21,11 +19,10 @@ public abstract class PostPlayerRequest extends NetworkRequest {
 	
 	@Override
 	protected final void processPostExecute(String s) {
-		p.ProcessPostResponse(s, m);
+		p.ProcessPostResponse(s);
 		onComplete(p);
 	}
 	
 	private Player p;
-	private Match m;
 
 }

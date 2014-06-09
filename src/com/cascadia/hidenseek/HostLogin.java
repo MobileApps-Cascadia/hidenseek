@@ -1,6 +1,7 @@
 package com.cascadia.hidenseek;
 
 import com.cascadia.hidenseek.network.PostMatchRequest;
+import com.cascadia.hidenseek.network.PostPlayerRequest;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
@@ -33,7 +34,7 @@ public class HostLogin extends Activity {
             	Spinner mType = (Spinner) findViewById(R.id.loginMatchTypeSelect);
             	EditText mPassword = (EditText) findViewById(R.id.loginPasswordInput);
             	
-            	Match m = HostLoginManager.ValidateLogin(mName.getText().toString(),
+            	Match m = LoginManager.ValidateHostLogin(mName.getText().toString(),
 			            			mPassword.getText().toString(),
 			            			mType.getSelectedItemPosition());
             	if(m == null) {
@@ -46,8 +47,21 @@ public class HostLogin extends Activity {
 					
             		@Override
             		protected void onComplete(Match m) {
-            			Intent intent = new Intent(HostLogin.this, HostConfig.class);
-            			startActivity(intent);
+            			LoginManager.playerMe = new Player("Host", m);
+            			PostPlayerRequest pp = new PostPlayerRequest() {
+							
+							@Override
+							protected void onException(Exception e) {
+								e.printStackTrace();
+							}
+							@Override
+							protected void onComplete(Player p) {
+								LoginManager.playerMe = p;
+		            			Intent intent = new Intent(HostLogin.this, HostConfig.class);
+		            			startActivity(intent);
+							}
+						};
+						pp.DoRequest(LoginManager.playerMe, m.GetPassword());
             		}
             		
 					@Override
