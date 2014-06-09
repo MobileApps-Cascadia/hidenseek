@@ -51,7 +51,7 @@ public class Player {
 	public static List<Player> ParseToList(String jsonStr, Match associatedMatch)
 			throws JSONException {
 		List<Player> toReturn = new ArrayList<Player>();
-		JSONArray jArray = new JSONObject(jsonStr).getJSONArray("matches");
+		JSONArray jArray = new JSONObject(jsonStr).getJSONArray("players");
 		for(int i = 0; i < jArray.length(); i++) {
 			toReturn.add(parse(jArray.getJSONObject(i), associatedMatch));
 		}
@@ -77,10 +77,9 @@ public class Player {
 		return jObject.toString();
 	}
 	
-	public boolean ProcessPostResponse(String jsonStr, Match associatedMatch) {
+	public boolean ProcessPostResponse(String jsonStr) {
 		try {
-			this.associatedMatch = associatedMatch;
-			playerId = new JSONObject(jsonStr).getInt("id");
+			playerId = new JSONObject(jsonStr).getInt("playerID");
 			if(playerId == 0) {
 				return false;
 			}
@@ -129,6 +128,9 @@ public class Player {
 	
 	public int GetId() {
 		return playerId;
+	}
+	public Match GetAssociatedMatch() {
+		return associatedMatch;
 	}
 	
 	private Location location;

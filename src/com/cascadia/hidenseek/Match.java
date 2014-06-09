@@ -180,6 +180,9 @@ public class Match {
 	public String GetName() {
 		return name;
 	}
+	public String GetPassword() {
+		return password;
+	}
 	public int GetCountTime() {
 		return countTime;
 	}
