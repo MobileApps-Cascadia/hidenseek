@@ -110,7 +110,9 @@ public class HostLogin extends Activity {
 	 * Get any stored preferences and put them in the fields when form is loaded
 	 */
 	private void initSettings(){		
-		username = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Username","Host");
+		username = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Username","");
+		EditText uName = (EditText)findViewById(R.id.TextPlayerNameInput);
+		uName.setText(username);
 	}
 
 }
