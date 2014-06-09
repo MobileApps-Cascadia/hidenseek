@@ -34,8 +34,7 @@ public class HostConfig extends Activity {
 		
 		initSettings();
 		list=(ListView)findViewById(R.id.configPlayerList);
-		
-		
+				
 		TextView playersText = (TextView) findViewById(R.id.configPlayersTitle);
 		playersText.setOnClickListener(new View.OnClickListener() {
 			

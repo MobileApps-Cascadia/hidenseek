@@ -23,6 +23,15 @@
 			    android:clickable="true"
 			    android:name="com.google.android.gms.maps.SupportMapFragment"
 			/>
+            
+            <ImageButton
+            android:id="@+id/btnLeaveGame"
+            android:layout_width="153dp"
+            android:layout_height="149dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_leave_set" />
         </LinearLayout>
     </ScrollView>
 
