@@ -14,7 +14,14 @@ public class LoginManager {
 		}
 		
 		m = new Match(matchName, password, MatchType.Sandbox);
+		isHost = true;
 		return m;
+	}
+	
+	public static void ValidateJoinLogin(Player p) {
+		playerMe = p;
+		m = p.GetAssociatedMatch();
+		isHost = false;
 	}
 	
 	public static void SetMatch(Match match) {
@@ -27,6 +34,6 @@ public class LoginManager {
 	
 	public static Player playerMe;
 	private static Match m;
-	
+	public static boolean isHost;
 
 }
