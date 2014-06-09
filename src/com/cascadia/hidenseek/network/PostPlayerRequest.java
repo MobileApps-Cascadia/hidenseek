@@ -1,5 +1,7 @@
 package com.cascadia.hidenseek.network;
 
+import org.json.JSONException;
+
 import com.cascadia.hidenseek.Player;
 import com.cascadia.hidenseek.network.NetworkBase.RequestType;
 
@@ -10,7 +12,11 @@ public abstract class PostPlayerRequest extends NetworkRequest {
 		Request r = new Request();
 		r.url = baseUrl + "matches/" + toPost.GetAssociatedMatch().GetId() + "/players/";
 		r.type = RequestType.POST;
-		r.jsonArgs = p.ToJSONPost(password);
+		try {
+			r.jsonArgs = p.ToJSONPost(password);
+		} catch (JSONException e) {
+			onException(e);
+		}
 		doRequest(r);
 	}
 	

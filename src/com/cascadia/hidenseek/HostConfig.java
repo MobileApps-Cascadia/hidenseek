@@ -28,6 +28,10 @@ public class HostConfig extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_host_config);
 		
+		if(LoginManager.GetMatch() == null) {
+			//Error!
+		}
+		
 		initSettings();
 		
 		list=(ListView)findViewById(R.id.configPlayerList);
@@ -48,8 +52,12 @@ public class HostConfig extends Activity {
             	EditText countTime = (EditText) findViewById(R.id.configCountTimeInput);
             	EditText seekTime = (EditText) findViewById(R.id.configSeekTimeInput);
             	Match m = LoginManager.GetMatch();
-            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
-            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
+            	try {
+	            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
+	            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
+            	} catch(NumberFormatException e) {
+            		//TODO: get defaults
+            	}
             	PutStartRequest request = new PutStartRequest() {
 					@Override
 					protected void onException(Exception e) {

@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.cascadia.hidenseek.Match.Status;
 import com.cascadia.hidenseek.network.GetMatchListRequest;
+import com.cascadia.hidenseek.network.GetMatchRequest;
+import com.cascadia.hidenseek.network.PostPlayerRequest;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.os.Build;
@@ -25,13 +29,24 @@ import android.os.Build;
 public class JoinLogin extends Activity {
 
 	String username;
+	ListView l;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join_login);
+		l = (ListView) findViewById(R.id.configPlayerList);
 		initSettings();
 		initList();
+		
+		ImageButton btnJoin = (ImageButton) findViewById(R.id.btnJoinJoin);
+		btnJoin.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				joinMatch();
+			}
+		});
+		
 	}
 	
 	/**
@@ -46,7 +61,6 @@ public class JoinLogin extends Activity {
 			@Override
 			protected void onComplete(List<Match> matches) {
 				//Gets the list of matches and puts in listview
-				ListView l = (ListView) findViewById(R.id.configPlayerList);
 				ArrayList<String> gameTitles = new ArrayList<String>();
 				for(Match m : matches) {
 					if(m.GetStatus() == Status.Pending) {
@@ -62,6 +76,44 @@ public class JoinLogin extends Activity {
 		
 	}
 
+	private void joinMatch() {
+		String entry = l.getItemAtPosition(l.getCheckedItemPosition()).toString();
+		String intString = entry.replaceFirst(" - .*", "");
+		int matchId = Integer.parseInt(intString);
+		
+		GetMatchRequest gmRequest = new GetMatchRequest() {
+			
+			@Override
+			protected void onException(Exception e) {
+				e.printStackTrace();
+			}
+			
+			@Override
+			protected void onComplete(Match match) {
+				EditText mPassword = (EditText) findViewById(R.id.JoinPasswordInput);
+				EditText pName = (EditText) findViewById(R.id.TextPlayerNameInput);
+				Player p = new Player(pName.getText().toString(), match);
+				PostPlayerRequest ppRequest = new PostPlayerRequest() {
+					@Override
+					protected void onException(Exception e) {
+						// TODO Auto-generated method stub
+						e.printStackTrace();
+					}
+					
+					@Override
+					protected void onComplete(Player p) {
+						//TODO: don't keep going if the password was wrong.
+						LoginManager.ValidateJoinLogin(p);
+						Intent intent = new Intent(JoinLogin.this, HostConfig.class);
+	        			startActivity(intent);
+					}
+				};
+				ppRequest.DoRequest(p, mPassword.getText().toString());
+			}
+		};
+		gmRequest.DoRequest(matchId);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
