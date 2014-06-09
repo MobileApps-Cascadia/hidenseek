@@ -28,6 +28,7 @@ public class Home extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home);
 		
+		//User clicked Host Match button
         ImageButton btnHost = (ImageButton) findViewById(R.id.btnHostHome);
         btnHost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -35,6 +36,7 @@ public class Home extends Activity {
     			startActivity(intent);
             }
         });
+        //User clicked Join Match button
         ImageButton btnJoin = (ImageButton) findViewById(R.id.btnJoinHome);
         btnJoin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -42,6 +44,15 @@ public class Home extends Activity {
     			startActivity(intent);
             }
         });
+        //User clicked Settings button
+        ImageButton btnSettings = (ImageButton) findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Home.this, Settings.class);
+				startActivity(intent);
+			}
+		});
 //        
 //        try {
 //			
