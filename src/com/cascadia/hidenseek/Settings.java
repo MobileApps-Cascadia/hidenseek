@@ -58,7 +58,8 @@ public class Settings extends Activity implements OnClickListener {
 		toEdit.putString("Seektime", seektime);
 		toEdit.commit(); } 
 	
-	@Override public void onClick(View currentButton) { 
+	@Override 
+	public void onClick(View currentButton) { 
 		switch (currentButton.getId()) { 
 			case R.id.submit: 
 				username = userinput.getText().toString(); 
@@ -71,5 +72,25 @@ public class Settings extends Activity implements OnClickListener {
 				finish(); 
 				} 
 		} 
+	
+	/** 
+	 * returns Shared Pref Player Name 
+	 */
+	public String getUserName(){
+		return username;
 	}
-
+	
+	/** 
+	 * returns Shared Pref Count Time 
+	 */
+	public String getCountTime(){
+		return counttime;
+	}
+	
+	/** 
+	 * returns Shared Pref Seek Time 
+	 */
+	public String getSeekTime(){
+		return seektime;	
+	}
+}

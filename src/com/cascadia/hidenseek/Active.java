@@ -6,16 +6,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.os.Build;
 
@@ -36,7 +40,18 @@ public class Active extends FragmentActivity {
 				LatLng point = new LatLng(location.getLatitude(),location.getLongitude());
 				googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,18));
 			}
-		});		
+		});	
+		
+		/**
+		 * User clicked Leave Match button
+		 */
+	    ImageButton btnLeave = (ImageButton) findViewById(R.id.btnLeaveGame);
+	    btnLeave.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+				Intent intent = new Intent(Active.this, Home.class);
+				startActivity(intent);
+	        }
+	    });
 	}
 	
 	public void onPause(){
