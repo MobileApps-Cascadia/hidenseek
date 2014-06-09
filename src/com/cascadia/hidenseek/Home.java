@@ -1,24 +1,13 @@
 package com.cascadia.hidenseek;
 
-import java.io.IOException;
-import java.util.List;
-
-import com.cascadia.hidenseek.Match.MatchType;
-import com.cascadia.hidenseek.network.GetMatchRequest;
-import com.cascadia.hidenseek.network.PostMatchRequest;
-
-import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
-import android.os.Build;
 
 public class Home extends Activity {
 
