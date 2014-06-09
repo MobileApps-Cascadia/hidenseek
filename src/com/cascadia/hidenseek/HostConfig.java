@@ -22,10 +22,6 @@ public class HostConfig extends Activity {
 
 	String username, counttime, seektime;
 	ListView list;
-	//TEMP: Add players here
-	String[] web = {
-		"Billie Jo", "Mike", "Tre Cool"
-	} ;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
