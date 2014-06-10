@@ -52,7 +52,6 @@ public class Active extends FragmentActivity {
 		//Show user's position on map
 		googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapview)).getMap();
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		addPlayer();
 		googleMap.setMyLocationEnabled(true);
 		googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener(){
 			@Override
@@ -77,14 +76,26 @@ public class Active extends FragmentActivity {
 
 	        @Override
 	        public void run() {
-
 	        	//Do request and update values in match. No callback needed.
 	        	GetPlayerListRequest gplRequest = new GetPlayerListRequest() {			
 					@Override
 					protected void onException(Exception e) {}
 					
 					@Override
-					protected void onComplete(Match match) {}
+					protected void onComplete(Match match) {
+			        	googleMap.clear();
+			        	
+			        	for(Player p : match.players) {
+			        		//Dont't add a marker for players with null locations or one for myself.
+			        		if(p.GetLocation() != null && p.GetId() != player.GetId()) { 
+			        			googleMap.addMarker(
+			        					new MarkerOptions()
+			        						.position(new LatLng(p.GetLocation().getLatitude(),
+			        									p.GetLocation().getLongitude()))
+			        						.title(p.GetName()));
+			        		}
+			        	}
+					}
 	        	};
 	        	gplRequest.DoRequest(match);
 	        	
@@ -95,30 +106,11 @@ public class Active extends FragmentActivity {
 					protected void onException(Exception e) {}
 				};
 				pgRequest.DoRequest(player);
-				
-				//TODO: update locations on map.
-				
+	        	
 	            h2.postDelayed(this, callbackDelay);
 	        }
 	    };
 	    callback.run(); //Begin periodic updating!
-	}
-	
-	/**
-	 * Adds player to the map
-	 * TODO: Connect to db to bring in actual players, will have
-	 * to add code to not show a marker for the user (so it won't show their
-	 * current position AND a marker)
-	 */
-	public void addPlayer(){
-        googleMap.addMarker(new MarkerOptions()
-	    .position(new LatLng(47.7623076,-122.1905603))
-	    .title("Aaron"));
-        
-        //Added a temp player for testing at home
-        googleMap.addMarker(new MarkerOptions()
-        .position(new LatLng(47.8488257,-122.1866945))
-        .title("The Cat"));
 	}
 	
 	public void onPause(){
