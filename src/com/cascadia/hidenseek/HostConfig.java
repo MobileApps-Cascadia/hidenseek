@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -49,7 +50,7 @@ public class HostConfig extends Activity {
 		if(!LoginManager.isHost) {
 			//TODO: Set up for joiner, not host!
 		}
-        
+		
         btnBeginMatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	//Set the match count time and seek time as specified, etc.
@@ -117,7 +118,6 @@ public class HostConfig extends Activity {
 		};
 		request.DoRequest(LoginManager.GetMatch());
 	}
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
