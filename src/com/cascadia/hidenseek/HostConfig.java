@@ -3,12 +3,19 @@ package com.cascadia.hidenseek;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cascadia.hidenseek.Match.MatchType;
+import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
+import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.cascadia.hidenseek.network.PutStartRequest;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +29,13 @@ public class HostConfig extends Activity {
 
 	String username, counttime, seektime;
 	ListView list;
+	boolean isActive;
+	
+	//Used for periodic callback.
+    private Handler h2 = new Handler();
+    //Millisecond delay between callbacks
+    private final int callbackDelay = 500;
+    
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,40 +49,32 @@ public class HostConfig extends Activity {
 		initSettings();
 		
 		list=(ListView)findViewById(R.id.configPlayerList);
-		
-		TextView playersText = (TextView) findViewById(R.id.configPlayersTitle);
-		playersText.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				setPlayerList();
-			}
-		});
+		isActive = true;
 		
         ImageButton btnBeginMatch = (ImageButton) findViewById(R.id.btnConfigBegin);
+        ImageButton btnCancelMatch = (ImageButton) findViewById(R.id.btnConfigCancel);
         
-		if(!LoginManager.isHost) {
-			//TODO: Set up for joiner, not host!
-		}
-		
         btnBeginMatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	//Set the match count time and seek time as specified, etc.
             	EditText countTime = (EditText) findViewById(R.id.configCountTimeInput);
             	EditText seekTime = (EditText) findViewById(R.id.configSeekTimeInput);
-            	String sCountTime = countTime.getText().toString();
-        		String sSeekTime = seekTime.getText().toString();
-        		if(sSeekTime.length() == 0 || sCountTime.length() == 0) {
-        			//Error!
-        			return;
-        		}
             	Match m = LoginManager.GetMatch();
-            	try {
-	            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
-	            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
-            	} catch(NumberFormatException e) {
-            		//Error!
-            		return;
+            	//Validate countTime and searchTime input unless this is a sandbox
+            	if(LoginManager.GetMatch().GetType() != MatchType.Sandbox) {
+                	String sCountTime = countTime.getText().toString();
+            		String sSeekTime = seekTime.getText().toString();
+            		if(sSeekTime.length() == 0 || sCountTime.length() == 0) {
+            			//Error!
+            			return;
+            		}
+	            	try {
+		            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
+		            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
+	            	} catch(NumberFormatException e) {
+	            		//Error!
+	            		return;
+	            	}
             	}
             	PutStartRequest request = new PutStartRequest() {
 					@Override
@@ -84,7 +90,59 @@ public class HostConfig extends Activity {
 				request.DoRequest(m);
             }
         });	
-		setPlayerList();		
+        
+        btnCancelMatch.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Confirm with user
+				finish();
+			}
+		});
+
+        //Remove count time and search time things if this is a sandbox
+        if(LoginManager.GetMatch().GetType() == MatchType.Sandbox) {
+        	findViewById(R.id.configTimeContainer).setVisibility(View.GONE);
+        }
+        
+		//Change the buttons for joiners.
+		if(!LoginManager.isHost) {
+			btnBeginMatch.setEnabled(false);
+			btnBeginMatch.setAlpha(100);
+			btnCancelMatch.setImageDrawable(
+					getResources().getDrawable(R.drawable.btn_leave_set));
+		}
+	    Runnable callback = new Runnable() {
+	    	
+	    	//This function gets called twice per second until the app is stopped.
+	        @Override
+	        public void run() {
+
+				setPlayerList();
+				
+				//If joiner, then check if host has started yet.
+				if(!LoginManager.isHost) {
+					GetMatchRequest gmRequest = new GetMatchRequest() {
+						@Override
+						protected void onException(Exception e) {}
+						@Override
+						protected void onComplete(Match match) {
+							if(match.GetStatus() == Status.Active) {
+				    			Intent intent = new Intent(HostConfig.this, Active.class);
+				    			startActivity(intent);
+							}
+						}
+					};
+					gmRequest.DoRequest(LoginManager.GetMatch().GetId());
+				}
+
+				if(isActive) {
+					h2.postDelayed(this, callbackDelay);
+				}
+	        }
+	    };
+	    callback.run(); //Begin periodic updating!
+
 	}
 	
 	private void setPlayerList() {

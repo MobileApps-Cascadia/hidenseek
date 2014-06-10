@@ -31,6 +31,7 @@ public class Active extends FragmentActivity {
 	GoogleMap googleMap;
 	Match match;
 	Player player;
+	boolean isActive;
 	
 	//Used for periodic callback.
     private Handler h2 = new Handler();
@@ -44,6 +45,7 @@ public class Active extends FragmentActivity {
 		
 		match = LoginManager.GetMatch();
 		player = LoginManager.playerMe;
+		isActive = true;
 		if(match == null || player == null) {
 			//Error!
 			throw new RuntimeException("Null match in Active.onCreate");
@@ -70,10 +72,9 @@ public class Active extends FragmentActivity {
 	        }
 	    });
 	    
-	    //Runnable
-	    //runs without timer be reposting self
 	    Runnable callback = new Runnable() {
-
+	    	
+	    	//This function gets called twice per second until the app is stopped.
 	        @Override
 	        public void run() {
 	        	//Do request and update values in match. No callback needed.
@@ -107,7 +108,9 @@ public class Active extends FragmentActivity {
 				};
 				pgRequest.DoRequest(player);
 	        	
-	            h2.postDelayed(this, callbackDelay);
+				if(isActive) {
+					h2.postDelayed(this, callbackDelay);
+				}
 	        }
 	    };
 	    callback.run(); //Begin periodic updating!
@@ -165,6 +168,12 @@ public class Active extends FragmentActivity {
 	            getActivity().finish();
 	        }
 	    }
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		isActive = false;
 	}
 	
 	@Override
