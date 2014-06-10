@@ -21,7 +21,6 @@ import android.os.Build;
 
 public class HostLogin extends Activity {
 
-	String username;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,8 +48,8 @@ public class HostLogin extends Activity {
 					
             		@Override
             		protected void onComplete(Match m) {
-            			
-            			LoginManager.playerMe = new Player(username, m);
+                    	EditText pName = (EditText) findViewById(R.id.TextPlayerNameInput);
+            			LoginManager.playerMe = new Player(pName.getText().toString(), m);
             			PostPlayerRequest pp = new PostPlayerRequest() {
 							
 							@Override
@@ -110,7 +109,7 @@ public class HostLogin extends Activity {
 	 * Get any stored preferences and put them in the fields when form is loaded
 	 */
 	private void initSettings(){		
-		username = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Username","");
+		String username = getSharedPreferences("HideNSeek_shared_pref", MODE_PRIVATE).getString("Username","");
 		EditText uName = (EditText)findViewById(R.id.TextPlayerNameInput);
 		uName.setText(username);
 	}

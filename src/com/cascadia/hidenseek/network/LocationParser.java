@@ -14,7 +14,7 @@ public class LocationParser {
 		if(l == null) {
 			throw new NullPointerException("Null Location in LocationParser.GetString");
 		}
-		return String.format(Locale.ENGLISH, "%d\n%d\n%d\n%d\n%d",
+		return String.format(Locale.ENGLISH, "%f\n%f\n%f\n%f\n%f",
 				l.getLatitude(),
 				l.getLongitude(),
 				l.getAccuracy(),

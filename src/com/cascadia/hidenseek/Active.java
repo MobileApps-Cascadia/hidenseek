@@ -1,5 +1,7 @@
 package com.cascadia.hidenseek;
 
+import com.cascadia.hidenseek.network.GetPlayerListRequest;
+import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +28,25 @@ import android.os.Build;
 
 public class Active extends FragmentActivity {
 	GoogleMap googleMap;
+	Match match;
+	Player player;
 	
+	//Used for periodic callback.
+    private Handler h2 = new Handler();
+    //Millisecond delay between callbacks
+    private final int callbackDelay = 500;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active);
+		
+		match = LoginManager.GetMatch();
+		player = LoginManager.playerMe;
+		if(match == null || player == null) {
+			//Error!
+			throw new RuntimeException("Null match in Active.onCreate");
+		}
 		
 		googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapview)).getMap();
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -38,13 +55,11 @@ public class Active extends FragmentActivity {
 			@Override
 			public void onMyLocationChange(Location location){
 				LatLng point = new LatLng(location.getLatitude(),location.getLongitude());
+				player.SetLocation(location);
 				googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,18));
 			}
 		});	
-		
-		/**
-		 * User clicked Leave Match button
-		 */
+		//User clicked Leave Match button
 	    ImageButton btnLeave = (ImageButton) findViewById(R.id.btnLeaveGame);
 	    btnLeave.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
@@ -52,6 +67,38 @@ public class Active extends FragmentActivity {
 				startActivity(intent);
 	        }
 	    });
+	    
+	    //Runnable
+	    //runs without timer be reposting self
+	    Runnable callback = new Runnable() {
+
+	        @Override
+	        public void run() {
+
+	        	//Do request and update values in match. No callback needed.
+	        	GetPlayerListRequest gplRequest = new GetPlayerListRequest() {			
+					@Override
+					protected void onException(Exception e) {}
+					
+					@Override
+					protected void onComplete(Match match) {}
+	        	};
+	        	gplRequest.DoRequest(match);
+	        	
+	        	//Do request. No callback needed. Player location set by
+	        	//Google Maps' onMyLocationChange
+	        	PutGpsRequest pgRequest = new PutGpsRequest() {
+					@Override
+					protected void onException(Exception e) {}
+				};
+				pgRequest.DoRequest(player);
+				
+				//TODO: update locations on map.
+				
+	            h2.postDelayed(this, callbackDelay);
+	        }
+	    };
+	    callback.run(); //Begin periodic updating!
 	}
 	
 	public void onPause(){

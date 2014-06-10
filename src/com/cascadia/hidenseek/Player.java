@@ -114,6 +114,10 @@ public class Player {
 		return location;
 	}
 	
+	public void SetLocation(Location l) {
+		location = l;
+	}
+	
 	public Date GetLastUpdatedLocation() {
 		return lastUpdatedLocation;
 	}
