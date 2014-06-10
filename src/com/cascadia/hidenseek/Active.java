@@ -6,6 +6,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -31,14 +32,16 @@ public class Active extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active);
 		
+		//Show user's position on map
 		googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapview)).getMap();
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		addPlayer();
 		googleMap.setMyLocationEnabled(true);
 		googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener(){
 			@Override
 			public void onMyLocationChange(Location location){
 				LatLng point = new LatLng(location.getLatitude(),location.getLongitude());
-				googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,18));
+				googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,16));
 			}
 		});	
 		
@@ -52,6 +55,23 @@ public class Active extends FragmentActivity {
 				startActivity(intent);
 	        }
 	    });
+	}
+	
+	/**
+	 * Adds player to the map
+	 * TODO: Connect to db to bring in actual players, will have
+	 * to add code to not show a marker for the user (so it won't show their
+	 * current position AND a marker)
+	 */
+	public void addPlayer(){
+        googleMap.addMarker(new MarkerOptions()
+	    .position(new LatLng(47.7623076,-122.1905603))
+	    .title("Aaron"));
+        
+        //Added a temp player for testing at home
+        googleMap.addMarker(new MarkerOptions()
+        .position(new LatLng(47.8488257,-122.1866945))
+        .title("The Cat"));
 	}
 	
 	public void onPause(){

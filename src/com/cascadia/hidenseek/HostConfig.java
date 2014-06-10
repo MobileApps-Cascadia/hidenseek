@@ -48,9 +48,10 @@ public class HostConfig extends Activity {
         
 		if(!LoginManager.isHost) {
 			//TODO: Set up for joiner, not host!
+			//btnBeginMatch.setEnabled(false);
 		}
         
-        btnBeginMatch.setEnabled(false);
+        
         btnBeginMatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	//Set the match count time and seek time as specified, etc.
