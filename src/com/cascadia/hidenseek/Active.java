@@ -58,7 +58,7 @@ public class Active extends FragmentActivity {
 			public void onMyLocationChange(Location location){
 				LatLng point = new LatLng(location.getLatitude(),location.getLongitude());
 				player.SetLocation(location);
-				googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,18));
+				googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,17));
 			}
 		});	
 		//User clicked Leave Match button
