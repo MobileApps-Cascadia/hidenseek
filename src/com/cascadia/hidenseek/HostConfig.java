@@ -132,6 +132,7 @@ public class HostConfig extends Activity {
 						@Override
 						protected void onComplete(Match match) {
 							if(match.GetStatus() == Status.Active) {
+								isActive = false;
 				    			Intent intent = new Intent(HostConfig.this, Active.class);
 				    			startActivity(intent);
 							}
