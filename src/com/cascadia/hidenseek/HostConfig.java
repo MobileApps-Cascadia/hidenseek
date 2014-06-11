@@ -1,8 +1,5 @@
 package com.cascadia.hidenseek;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cascadia.hidenseek.Match.MatchType;
 import com.cascadia.hidenseek.Match.Status;
 import com.cascadia.hidenseek.network.GetMatchRequest;
@@ -13,6 +10,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,7 +35,6 @@ public class HostConfig extends Activity {
     private Handler h2 = new Handler();
     //Millisecond delay between callbacks
     private final int callbackDelay = 500;
-    
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,10 @@ public class HostConfig extends Activity {
 		setContentView(R.layout.activity_host_config);
 		
 		if(LoginManager.GetMatch() == null) {
-			//Error!
+			Dialog d = new Dialog(this);
+			d.setTitle("Error: null match.");
+			d.show();
+			finish();
 		}
 		
 		initSettings();
@@ -72,8 +74,11 @@ public class HostConfig extends Activity {
 		            	m.SetCountTime(Integer.parseInt(countTime.getText().toString()));
 		            	m.SetSeekTime(Integer.parseInt(seekTime.getText().toString()));
 	            	} catch(NumberFormatException e) {
-	            		//Error!
-	            		return;
+
+	        			Dialog d = new Dialog(HostConfig.this);
+	        			d.setTitle("Error: invalid value for count time and/or seek time");
+	        			d.show();
+	        			return;
 	            	}
             	}
             	PutStartRequest request = new PutStartRequest() {
@@ -95,11 +100,10 @@ public class HostConfig extends Activity {
 			
 			@Override
 			public void onClick(View arg0) {
-				// TODO Confirm with user
-				finish();
+				confirmCancel();
 			}
 		});
-
+        
         //Remove count time and search time things if this is a sandbox
         if(LoginManager.GetMatch().GetType() == MatchType.Sandbox) {
         	findViewById(R.id.configTimeContainer).setVisibility(View.GONE);
@@ -195,6 +199,30 @@ public class HostConfig extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	/**
+	 * Shows a dialog to confirm whether the user wants to cancel/leave match
+	 */
+    private void confirmCancel() {
+        final Dialog dialog;
+        String message = LoginManager.isHost ? "Cancel this match?" : "Leave this match?";
+
+        dialog = new AlertDialog.Builder(this).setMessage(message)
+            .setCancelable(false)
+            .setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            })
+            .setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            }).create();
+        dialog.show();
+    }
 	
 	/**
 	 * Get any stored preferences and put them in the fields when form is loaded

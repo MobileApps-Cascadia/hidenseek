@@ -47,8 +47,10 @@ public class Active extends FragmentActivity {
 		player = LoginManager.playerMe;
 		isActive = true;
 		if(match == null || player == null) {
-			//Error!
-			throw new RuntimeException("Null match in Active.onCreate");
+			Dialog d = new Dialog(this);
+			d.setTitle("Error: null match.");
+			d.show();
+			finish();
 		}
 		
 		//Show user's position on map

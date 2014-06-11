@@ -9,11 +9,11 @@ public class LoginManager {
 	public LoginManager() {	} 
 	
 	public static Match ValidateHostLogin(String matchName, String password, int matchType ) {
-		if(matchType != 1) {
-			return null;
+		if(matchType == 0) {
+			m = new Match(matchName, password, MatchType.HideNSeek);
+		} else {
+			m = new Match(matchName, password, MatchType.Sandbox);
 		}
-		
-		m = new Match(matchName, password, MatchType.Sandbox);
 		isHost = true;
 		return m;
 	}
