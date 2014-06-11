@@ -28,5 +28,6 @@
     <string name="pref_count_time">Default Count Time</string>
     <string name="pref_seek_time">Default Seek Time</string>
     <string name="title_settings">Settings</string>
+    <string name="title_activity_select_match">Select Match</string>
 
 </resources>

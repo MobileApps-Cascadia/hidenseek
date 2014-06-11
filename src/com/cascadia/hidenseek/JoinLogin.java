@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -29,15 +30,12 @@ import android.os.Build;
 public class JoinLogin extends Activity {
 
 	String username;
-	ListView l;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join_login);
-		l = (ListView) findViewById(R.id.configPlayerList);
 		initSettings();
-		initList();
 		
 		ImageButton btnJoin = (ImageButton) findViewById(R.id.btnJoinJoin);
 		btnJoin.setOnClickListener(new View.OnClickListener() {
@@ -46,39 +44,35 @@ public class JoinLogin extends Activity {
 				joinMatch();
 			}
 		});
-		
+		Button btnSelectMatch = (Button) findViewById(R.id.btnJoinSelectMatch);
+		if(SelectMatch.selectedMatch != null) {
+			btnSelectMatch.setText(SelectMatch.selectedMatch);
+		}
+		btnSelectMatch.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(JoinLogin.this, SelectMatch.class);
+				startActivity(intent);
+			}
+		});
 	}
 	
-	/**
-	 * initList creates a list of all the matches that are in a pending state
-	 */
-	private void initList() {
-		GetMatchListRequest request = new GetMatchListRequest() {
-			
-			@Override
-			protected void onException(Exception e) { }		
-			
-			@Override
-			protected void onComplete(List<Match> matches) {
-				//Gets the list of matches and puts in listview
-				ArrayList<String> gameTitles = new ArrayList<String>();
-				for(Match m : matches) {
-					if(m.GetStatus() == Status.Pending) {
-						String title = m.GetId() + " - " + m.GetName();
-						gameTitles.add(title);
-					}
-				}
-				ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(JoinLogin.this,android.R.layout.simple_list_item_single_choice, gameTitles);
-				l.setAdapter(arrayAdapter);				
-			}
-		};
-		request.DoRequest();
-		
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Button btnSelectMatch = (Button) findViewById(R.id.btnJoinSelectMatch);
+		if(SelectMatch.selectedMatch != null) {
+			btnSelectMatch.setText(SelectMatch.selectedMatch);
+		}
 	}
 
 	private void joinMatch() {
-		String entry = l.getItemAtPosition(l.getCheckedItemPosition()).toString();
-		String intString = entry.replaceFirst(" - .*", "");
+		if(SelectMatch.selectedMatch == null) {
+			//Error!
+			return;
+		}
+		String intString = SelectMatch.selectedMatch.replaceFirst(" - .*", "");
 		int matchId = Integer.parseInt(intString);
 		
 		GetMatchRequest gmRequest = new GetMatchRequest() {

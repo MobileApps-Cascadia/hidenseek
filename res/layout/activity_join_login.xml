@@ -18,6 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" > -->
 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,15 +55,14 @@
                     android:layout_marginRight="20dp"
                     android:src="@drawable/ic_help" />
 
-                <ListView
-                    android:id="@+id/configPlayerList"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                <Button
+                    android:id="@+id/btnJoinSelectMatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/configPlayersTitle"
                     android:layout_alignRight="@+id/configPlayersHelp"
                     android:layout_below="@+id/configPlayersTitle"
-                    android:choiceMode="singleChoice" >
-                </ListView>
+                    android:text="Select Match" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -96,7 +100,10 @@
                     android:layout_below="@+id/JoinPasswordText"
                     android:layout_marginTop="5dp"
                     android:ems="10"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword" >
+
+                    <requestFocus />
+                </EditText>
             </RelativeLayout>
 
             <RelativeLayout
@@ -146,6 +153,8 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/btn_join_set" />
         </LinearLayout>
+
+    </ScrollView>
 
   <!--   </ScrollView> -->
 

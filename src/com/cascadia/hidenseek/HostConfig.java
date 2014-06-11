@@ -2,6 +2,7 @@ package com.cascadia.hidenseek;
 
 import com.cascadia.hidenseek.Match.MatchType;
 import com.cascadia.hidenseek.Match.Status;
+import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.GetMatchRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutGpsRequest;
@@ -224,7 +225,7 @@ public class HostConfig extends Activity {
             }).create();
         dialog.show();
     }
-	
+    
 	/**
 	 * Get any stored preferences and put them in the fields when form is loaded
 	 */

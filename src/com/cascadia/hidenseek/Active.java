@@ -1,5 +1,6 @@
 package com.cascadia.hidenseek;
 
+import com.cascadia.hidenseek.network.DeletePlayingRequest;
 import com.cascadia.hidenseek.network.GetPlayerListRequest;
 import com.cascadia.hidenseek.network.PutGpsRequest;
 import com.google.android.gms.common.ConnectionResult;
@@ -138,6 +139,19 @@ public class Active extends FragmentActivity {
 			finish();
 		}
 	}
+	
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	DeletePlayingRequest dpRequest = new DeletePlayingRequest() {
+			
+			@Override
+			protected void onException(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		dpRequest.DoRequest(player);
+    }
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class ErrorDialogFragment extends DialogFragment{

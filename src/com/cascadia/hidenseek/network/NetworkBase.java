@@ -35,22 +35,13 @@ public class NetworkBase {
 		}
 	}
 	
-	//Send a GET request to the given url and returns the received text
-	public String Get(String url) throws IOException {
-		return get(url, false);
-	}
-	
 	//Sends a PUT request with a text body to the given url and returns
 	//the received text
 	public String Put(String url, String jsonArgs) throws IOException {
 		return post(url, jsonArgs, true);
 	}
 	
-	//Sends a PUT request without a text body to the given url and returns
-	//the received text
-	public String Put(String url) throws IOException {
-		return get(url, true);
-	}
+
 	
 	//Sends a POST request with a text body to the given url and returns
 	//the received text
@@ -91,6 +82,25 @@ public class NetworkBase {
 			connection.disconnect();
 		}
 		return toReturn;
+	}
+	/**
+	 * Sends an empty GET request to the given {@code url}
+	 * @param url Address to send the request to.
+	 * @return The body of the HTTP response as a string
+	 * @throws IOException in case of network error
+	 */
+	public String Get(String url) throws IOException {
+		return get(url, false);
+	}
+	
+	/**
+	 * Sends an empty PUT request to the given {@code url}
+	 * @param url Address to send the request to.
+	 * @return The body of the HTTP response as a string
+	 * @throws IOException in case of network error
+	 */
+	public String Put(String url) throws IOException {
+		return get(url, true);
 	}
 	
 	//Sends a request to the given strUrl and returns the returned text info.
